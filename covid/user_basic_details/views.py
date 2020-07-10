@@ -41,12 +41,13 @@ def user_details(request):
 	if request.method=="POST":
 		data=json.loads(request.body)
 		id=data['id']
-		details=list(user_basics.objects.filter(id=id).values('id','name','username','address','gender','email','phone_no','dob','blood_group'))
+		print(data)
+		details=list(user_basics.objects.filter(id=id,status="accept").values('id','name','username','address','gender','email','phone_no','dob','blood_group'))
 		return JsonResponse(details,safe=False)
 
 def user_list(request):
 	if request.method=="GET":
-		usr_list=list(user_basics.objects.all().values('id','name','username','address','gender','email','phone_no','dob','blood_group'))
+		usr_list=list(user_basics.objects.filter(status='accept').values('id','name','username','address','gender','email','phone_no','dob','blood_group'))
 		return JsonResponse(usr_list,safe=False)
 
 

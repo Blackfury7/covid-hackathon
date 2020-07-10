@@ -37,6 +37,34 @@ def user_registration(request):
 		
 		return JsonResponse(message,safe=False)
 
+
+
+def registration_requests(request):
+	if request.method=="GET":
+		
+		message=list(user_basics.objects.filter(status="pending").values('id','name','username','address','gender','email','phone_no','dob','blood_group'))
+
+	return JsonResponse(message,safe=False)
+
+def registration_reply(request):
+	if request.method=="POST":
+		data=json.loads(request.body)
+		query_id=data['id']
+		print(data)
+		user_basics.objects.filter(id=query_id).update(**data)
+
+	return JsonResponse("success",safe=False)
+
+# def registration_verified(request):
+# 	if request.method=="GET":
+		
+# 		message=list(user_basics.objects.filter(status="accept").values('id','name','username','address','gender','email','phone_no','dob','blood_group'))
+
+# 	return JsonResponse(message,safe=False)
+
+	
+
+
 def manager_registration(request):
 	if request.method=="POST":
 		data=json.loads(request.body)

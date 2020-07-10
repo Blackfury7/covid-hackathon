@@ -25,10 +25,11 @@ def log_create(request):
 def log_details(request):
 	if request.method=="POST":
 		data=json.loads(request.body)
+		print(data)
 		
 		user_id=data['user_id']
 		
-		new_logs=list(log.objects.filter(user_id=user_id).values('id','user_id','user__name','day','body'))
+		new_logs=list(log.objects.filter(user_id=user_id).order_by('day').values('id','user_id','user__name','day','body'))
 		return JsonResponse(new_logs,safe=False)
 
 def log_requests(request):
