@@ -32,30 +32,6 @@ def log_details(request):
 		new_logs=list(log.objects.filter(user_id=user_id).order_by('day').values('id','user_id','user__name','day','body'))
 		return JsonResponse(new_logs,safe=False)
 
-def log_requests(request):
-	if request.method=="GET":
-		
-		new_logs=list(log.objects.filter(status="pending").values('id','user_id','user__name','day','body'))
-		return JsonResponse(new_logs,safe=False)
-
-
-def log_reply(request):
-	if request.method=="POST":
-		data=json.loads(request.body)
-		
-		log_id=data['id']
-		
-		print(data)
-		log.objects.filter(id=log_id).update(**data)
-
-		return JsonResponse("success",safe=False)
-
-def log_verified(request):
-	if request.method=="GET":
-		
-		new_logs=list(log.objects.filter(status="accepted").values('id','user_id','user__name','day','body'))
-		return JsonResponse(new_logs,safe=False)
-
 
 
 

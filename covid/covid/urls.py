@@ -23,5 +23,4 @@ urlpatterns = [
     path('news/', include('manager_news.urls')),
     path('log/', include('patient_log.urls')),
     path('stranger/', include('stranger_query.urls')),
-    path('registration/', include('registration.urls')),
 ]
